@@ -1,0 +1,62 @@
+{
+  "name": "Default Catalog",
+  "cards": [
+    {
+      "name": "Bulbasaur",
+      "nPokeDex": 1,
+      "type": "Grass",
+      "hp": 45,
+      "attacks": [
+        {
+          "energies": ["Grass"],
+          "damage": 20,
+          "effect": "Flip a coin. If heads, the opponent's Pokémon is now Poisoned."
+        }
+      ],
+      "retreatCost": ["Colorless"],
+      "phase": "Basic",
+      "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+      "isHolographic": false,
+      "value": 10,
+      "rarity": "Common"
+    },
+    {
+      "name": "Charizard",
+      "nPokeDex": 6,
+      "type": "Fire",
+      "hp": 150,
+      "attacks": [
+        {
+          "energies": ["Fire", "Colorless"],
+          "damage": 100,
+          "effect": "Discard an Energy attached to Charizard."
+        }
+      ],
+      "retreatCost": ["Colorless", "Colorless", "Colorless"],
+      "phase": "Stage2",
+      "description": "Spits fire that is hot enough to melt boulders. Known to cause forest fires unintentionally.",
+      "isHolographic": true,
+      "value": 50,
+      "rarity": "Rare"
+    },
+    {
+      "name": "Pikachu",
+      "nPokeDex": 25,
+      "type": "Lightning",
+      "hp": 60,
+      "attacks": [
+        {
+          "energies": ["Lightning"],
+          "damage": 30,
+          "effect": "Flip a coin. If heads, the opponent's Pokémon is now Paralyzed."
+        }
+      ],
+      "retreatCost": ["Colorless"],
+      "phase": "Basic",
+      "description": "A mouse Pokémon. It can generate electric attacks from the electric pouches located in both of its cheeks.",
+      "isHolographic": true,
+      "value": 15,
+      "rarity": "Common"
+    }
+  ]
+}
