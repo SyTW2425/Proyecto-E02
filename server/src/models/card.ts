@@ -16,9 +16,9 @@ export enum TCGEnergy {
 }
 
 export enum Phase {
-  Basic = 'basic',
-  Stage1 = 'stage 1',
-  Stage2 = 'stage 2',
+  Basic = 'Basic',
+  Stage1 = 'Stage 1',
+  Stage2 = 'Stage 2',
   EX = 'EX',
 }
 
@@ -29,7 +29,8 @@ export enum Rarity {
   UltraRare = 'Ultra Rare',
 }
 
-interface IAttack {
+export interface IAttack {
+  name: string;
   energies: TCGEnergy[];
   damage: number;
   effect?: string;
@@ -39,6 +40,7 @@ export interface ICard extends Document {
   name: string;
   nPokeDex: number;
   type: TCGEnergy;
+  weakness: TCGEnergy;
   hp: number;
   attacks: IAttack[];
   retreatCost: TCGEnergy[];
@@ -54,6 +56,15 @@ export interface ICard extends Document {
 }
 
 export const attackSchema: Schema = new Schema<IAttack>({
+  name: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (value: string) =>
+        validator.isLength(value, { min: 1, max: 50 }),
+      message: 'Name must be between 1 and 50 characters',
+    },
+  },
   energies: { type: [String], required: true, enum: Object.values(TCGEnergy) },
   damage: {
     type: Number,
@@ -94,6 +105,11 @@ export const cardSchema: Schema = new Schema<ICard>({
     },
   },
   type: {
+    type: String,
+    required: true,
+    enum: Object.values(TCGEnergy),
+  },
+  weakness: {
     type: String,
     required: true,
     enum: Object.values(TCGEnergy),

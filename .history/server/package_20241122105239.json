@@ -1,0 +1,45 @@
+{
+  "name": "poke-deck-app",
+  "version": "1.0.0",
+  "description": "Proyecto E02",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && npm run copy-data",
+    "start": "node dist/src/app.js",
+    "dev": "tsc-watch --onSuccess \"env-cmd -f ./config/dev.env node dist/src/app.js\"",
+    "test": "env-cmd -f ./config/test.env mocha --exit",
+    "coverage": "c8 npm test && c8 report --reporter=lcov",
+    "doc": "typedoc --out docs src/**/*.ts; touch docs/.nojekyll",
+    "copy-data": "cp -r src/data dist/src/data"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17",
+    "@types/debug": "^4.1.12",
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.9.0",
+    "@types/validator": "^13.12.2",
+    "env-cmd": "^10.1.0",
+    "tsc-watch": "^6.2.1",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "debug": "^4.3.7",
+    "jsonwebtoken": "^9.0.2",
+    "mocha": "^10.8.2",
+    "morgan": "^1.10.0",
+    "ts-node": "^10.9.2",
+    "validator": "^13.12.0"
+  }
+}

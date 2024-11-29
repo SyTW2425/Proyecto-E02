@@ -1,0 +1,132 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.navbar {
+    background-color: #282c34;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar h1 {
+    margin: 0;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    display: inline;
+}
+
+.navbar ul li a {
+    color: #61dafb;
+    text-decoration: none;
+}
+
+.navbar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        display: none;
+    }
+
+    .navbar ul.active {
+        display: flex;
+    }
+
+    .navbar .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: #61dafb;
+}
+
+.fullscreen-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url('../../public/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding-top: 4rem; /* Adjust for navbar height */
+    box-sizing: border-box;
+}
+
+.wrapper {
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    gap: 1rem;
+    margin: 1rem;
+    margin-top: 1rem; /* Increased margin to separate from the navbar */
+}
+
+.section {
+    background-color: rgba(255, 255, 255, 0.7);
+    align-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the top */
+    gap: 3rem;
+    text-align: center;
+}
+
+.section h2 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 2rem; /* Increased font size */
+    color: #222; /* Slightly darker color */
+    font-family: 'Arial Black', Gadget, sans-serif; /* Bolder font */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
+    letter-spacing: 1px; /* Added letter spacing */
+    text-transform: uppercase; /* Uppercase text */
+}
+
+.link-button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* .link-button img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+} */
