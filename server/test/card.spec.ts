@@ -1,7 +1,12 @@
 import request from 'supertest';
 import app from '../src/app.js';
-import Card, { IAttack, AttackModel, cardSchema } from '../src/models/card.js';
-import User from '../src/models/user.js';
+import Card, {
+  ICard,
+  IAttack,
+  AttackModel,
+  cardSchema,
+} from '../src/models/card.js';
+import User, { IUser } from '../src/models/user.js';
 import { expect } from 'chai';
 
 let user: any;
@@ -27,13 +32,13 @@ before(async () => {
 });
 
 // Pruebas para la creación de una nueva carta
-describe('POST /cards/:name', () => {
+describe('POST /cards/:name', async () => {
   // Antes de cada prueba, limpiamos la base de datos
   beforeEach(async () => {
-    // await User.deleteMany({});
-    await Card.deleteMany({});
     await User.deleteMany({});
+    await Card.deleteMany({});
   });
+  
   it('debería crear una nueva carta y asociarla a un usuario existente', async () => {
     const newCard = {
       name: 'Ponyta',
@@ -63,7 +68,6 @@ describe('POST /cards/:name', () => {
       rarity: 'Common',
     };
 
-    // creamos un usuario
     const test_user1 = new User({
       name: 'John Doe',
       email: 'john.doe@example.com',
@@ -71,11 +75,13 @@ describe('POST /cards/:name', () => {
     });
     await test_user1.save();
     // Hacemos un post de la carta
+
     const response = await request(app)
       .post(`/cards/${test_user1.name}`)
       .set('Authorization', `Bearer ${token}`)
       .send(newCard)
       .expect(201);
+
     // Hacemos un get a las cartas del usuario
     const responseGet = await request(app)
       .get(`/users/${test_user1._id}/cards`)
