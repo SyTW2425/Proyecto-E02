@@ -37,5 +37,5 @@ jobs:
       run: npm ci
 
     - name: Running tests
-      working-directory: server
+      working-directory: poke-deck-app
       run: npm run test
