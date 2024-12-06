@@ -36,7 +36,7 @@ jobs:
     # 4. Configurar variables de entorno
     - name: Set environment variables
       run: |
-        echo "ATLAS_URI=mongodb://ale:ale2003@172.16.151.6:27017/database_test" > server/config/test.env
+        echo "MONGO_URI=mongodb://<IP_DE_LA_MAQUINA_VIRTUAL>:27017/test" > server/config/test.env
         echo "PORT=4200" >> server/config/test.env
 
     # 5. Arranca el servidor y lo ejecuta en segundo plano
