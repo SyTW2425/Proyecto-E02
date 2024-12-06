@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,6 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: server/package-lock.json  # Indicamos la ubicación del archivo
 
     - name: Install MongoDB
       run: |
@@ -40,9 +40,9 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
 
     - name: Install dependencies
-      working-directory: /home/usuario/Proyecto-E02/server
+      working-directory: server
       run: npm ci
 
     - name: Running tests
-      working-directory: /home/usuario/Proyecto-E02/server
+      working-directory: server
       run: npm run test
