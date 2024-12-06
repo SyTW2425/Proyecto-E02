@@ -3,7 +3,7 @@ import path from 'path';
 import Catalog from '../models/catalog.js';
 
 /**
- * Inicializa el catálogo de cartas con los datos de un archivo JSON.
+ * 
  */
 export const initCatalog = async () => {
   try {

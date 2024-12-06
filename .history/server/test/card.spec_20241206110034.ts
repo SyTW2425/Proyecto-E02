@@ -32,7 +32,6 @@ describe('POST /cards/:name', () => {
   beforeEach(async () => {
     // await User.deleteMany({});
     await Card.deleteMany({});
-    await User.deleteMany({});
   });
   it('debería crear una nueva carta y asociarla a un usuario existente', async () => {
     const newCard = {
@@ -63,22 +62,16 @@ describe('POST /cards/:name', () => {
       rarity: 'Common',
     };
 
-    // creamos un usuario
-    const test_user1 = new User({
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      password: 'Str0ngP@ssw0rd!',
-    });
-    await test_user1.save();
+    // cre
     // Hacemos un post de la carta
     const response = await request(app)
-      .post(`/cards/${test_user1.name}`)
+      .post(`/cards/${user.name}`)
       .set('Authorization', `Bearer ${token}`)
       .send(newCard)
       .expect(201);
     // Hacemos un get a las cartas del usuario
     const responseGet = await request(app)
-      .get(`/users/${test_user1._id}/cards`)
+      .get(`/users/${user._id}/cards`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
 

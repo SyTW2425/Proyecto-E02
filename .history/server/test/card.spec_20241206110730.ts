@@ -32,7 +32,7 @@ describe('POST /cards/:name', () => {
   beforeEach(async () => {
     // await User.deleteMany({});
     await Card.deleteMany({});
-    await User.deleteMany({});
+    await User
   });
   it('debería crear una nueva carta y asociarla a un usuario existente', async () => {
     const newCard = {
@@ -72,13 +72,13 @@ describe('POST /cards/:name', () => {
     await test_user1.save();
     // Hacemos un post de la carta
     const response = await request(app)
-      .post(`/cards/${test_user1.name}`)
+      .post(`/cards/${user.name}`)
       .set('Authorization', `Bearer ${token}`)
       .send(newCard)
       .expect(201);
     // Hacemos un get a las cartas del usuario
     const responseGet = await request(app)
-      .get(`/users/${test_user1._id}/cards`)
+      .get(`/users/${user._id}/cards`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
 

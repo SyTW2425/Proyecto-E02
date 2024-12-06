@@ -21,7 +21,7 @@ export interface IUser extends Document {
 }
 
 /**
- * Esquema de una tupla de carta.
+ * 
  */
 export const cardTupleSchema: Schema = new Schema<CardTuple>({
   card: {
@@ -31,9 +31,6 @@ export const cardTupleSchema: Schema = new Schema<CardTuple>({
   },
 });
 
-/**
- * Esquema de un usuario.
- */
 export const userSchema: Schema = new Schema<IUser>({
   name: {
     type: String,

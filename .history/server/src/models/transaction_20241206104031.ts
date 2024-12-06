@@ -14,9 +14,6 @@ export interface ITransaction extends Document {
   date: Date;
 }
 
-/**
- * Esquema de una transacción.
- */
 export const transactionSchema: Schema = new Schema<ITransaction>({
   user_1: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   user_2: { type: Schema.Types.ObjectId, ref: 'User', required: true },

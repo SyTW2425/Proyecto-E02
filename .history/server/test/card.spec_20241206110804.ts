@@ -72,13 +72,13 @@ describe('POST /cards/:name', () => {
     await test_user1.save();
     // Hacemos un post de la carta
     const response = await request(app)
-      .post(`/cards/${test_user1.name}`)
+      .post(`/cards/${user.name}`)
       .set('Authorization', `Bearer ${token}`)
       .send(newCard)
       .expect(201);
     // Hacemos un get a las cartas del usuario
     const responseGet = await request(app)
-      .get(`/users/${test_user1._id}/cards`)
+      .get(`/users/${test_user_1._id}/cards`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
 

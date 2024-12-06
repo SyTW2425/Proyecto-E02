@@ -10,9 +10,6 @@ export interface ICatalog extends Document {
   cards: ICard[];
 }
 
-/**
- * Esquema de un catálogo de cartas.
- */
 const catalogSchema: Schema = new Schema<ICatalog>({
   name: {
     type: String,

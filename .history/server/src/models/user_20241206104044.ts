@@ -10,9 +10,6 @@ export interface CardTuple {
   card: typeof cardSchema;
 }
 
-/**
- * Interfaz para el modelo de usuario.
- */
 export interface IUser extends Document {
   name: string;
   password: string;
@@ -20,9 +17,6 @@ export interface IUser extends Document {
   cards: CardTuple[];
 }
 
-/**
- * Esquema de una tupla de carta.
- */
 export const cardTupleSchema: Schema = new Schema<CardTuple>({
   card: {
     type: Schema.Types.ObjectId,
@@ -31,9 +25,6 @@ export const cardTupleSchema: Schema = new Schema<CardTuple>({
   },
 });
 
-/**
- * Esquema de un usuario.
- */
 export const userSchema: Schema = new Schema<IUser>({
   name: {
     type: String,

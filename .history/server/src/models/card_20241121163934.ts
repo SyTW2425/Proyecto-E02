@@ -1,9 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 import validator from 'validator';
 
-/**
- * Tipos de energía de las cartas del TCG
- */
 export enum TCGEnergy {
   Grass = 'Grass',
   Fire = 'Fire',
@@ -18,9 +15,6 @@ export enum TCGEnergy {
   Colorless = 'Colorless',
 }
 
-/**
- * Fases de evolución de las cartas del TCG
- */
 export enum Phase {
   Basic = 'Basic',
   Stage1 = 'Stage 1',
@@ -28,9 +22,6 @@ export enum Phase {
   EX = 'EX',
 }
 
-/**
- * Rareza de las cartas del TCG
- */
 export enum Rarity {
   Common = 'Common',
   Uncommon = 'Uncommon',
@@ -38,9 +29,6 @@ export enum Rarity {
   UltraRare = 'Ultra Rare',
 }
 
-/**
- * Interfaz de un ataque de una carta del TCG
- */
 export interface IAttack {
   name: string;
   energies: TCGEnergy[];
@@ -48,9 +36,6 @@ export interface IAttack {
   effect?: string;
 }
 
-/**
- * Interfaz de una carta del TCG
- */
 export interface ICard extends Document {
   name: string;
   nPokeDex: number;
@@ -70,9 +55,6 @@ export interface ICard extends Document {
   };
 }
 
-/**
- * Esquema de un ataque de una carta del TCG
- */
 export const attackSchema: Schema = new Schema<IAttack>({
   name: {
     type: String,
@@ -104,9 +86,6 @@ export const attackSchema: Schema = new Schema<IAttack>({
 
 export const AttackModel = model<IAttack>('Attack', attackSchema);
 
-/**
- * Esquema de una carta del TCG
- */
 export const cardSchema: Schema = new Schema<ICard>({
   name: {
     type: String,

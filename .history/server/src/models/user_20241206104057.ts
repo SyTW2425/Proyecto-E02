@@ -31,9 +31,6 @@ export const cardTupleSchema: Schema = new Schema<CardTuple>({
   },
 });
 
-/**
- * Esquema de un usuario.
- */
 export const userSchema: Schema = new Schema<IUser>({
   name: {
     type: String,

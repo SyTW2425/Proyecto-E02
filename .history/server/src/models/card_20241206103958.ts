@@ -105,7 +105,7 @@ export const attackSchema: Schema = new Schema<IAttack>({
 export const AttackModel = model<IAttack>('Attack', attackSchema);
 
 /**
- * Esquema de una carta del TCG
+ * 
  */
 export const cardSchema: Schema = new Schema<ICard>({
   name: {

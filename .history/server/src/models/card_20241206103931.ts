@@ -39,7 +39,7 @@ export enum Rarity {
 }
 
 /**
- * Interfaz de un ataque de una carta del TCG
+ * 
  */
 export interface IAttack {
   name: string;
@@ -48,9 +48,6 @@ export interface IAttack {
   effect?: string;
 }
 
-/**
- * Interfaz de una carta del TCG
- */
 export interface ICard extends Document {
   name: string;
   nPokeDex: number;
@@ -70,9 +67,6 @@ export interface ICard extends Document {
   };
 }
 
-/**
- * Esquema de un ataque de una carta del TCG
- */
 export const attackSchema: Schema = new Schema<IAttack>({
   name: {
     type: String,
@@ -104,9 +98,6 @@ export const attackSchema: Schema = new Schema<IAttack>({
 
 export const AttackModel = model<IAttack>('Attack', attackSchema);
 
-/**
- * Esquema de una carta del TCG
- */
 export const cardSchema: Schema = new Schema<ICard>({
   name: {
     type: String,

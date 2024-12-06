@@ -70,9 +70,6 @@ export interface ICard extends Document {
   };
 }
 
-/**
- * Esquema de un ataque de una carta del TCG
- */
 export const attackSchema: Schema = new Schema<IAttack>({
   name: {
     type: String,
@@ -104,9 +101,6 @@ export const attackSchema: Schema = new Schema<IAttack>({
 
 export const AttackModel = model<IAttack>('Attack', attackSchema);
 
-/**
- * Esquema de una carta del TCG
- */
 export const cardSchema: Schema = new Schema<ICard>({
   name: {
     type: String,
