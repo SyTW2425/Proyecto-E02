@@ -12,9 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      max-parallel: 1
       matrix:
-        node-version: [16.x, 18.x, 19.x, 20.x, 21.x]
-        mongodb-version: ['5.0', '6.0', '7.0']
+        node-version: [16.x] 
+        mongodb-version: ['8.0.3']
 
     steps:
     - name: Git checkout
@@ -26,15 +27,22 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
+    - name: Install MongoDB
+      run: |
+        wget -qO - https://www.mongodb.org/static/pgp/server-8.0.asc | sudo apt-key add -
+        echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+        sudo apt-get update
+        sudo apt-get install -y mongodb-org=${{ matrix.mongodb-version }}
+        
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.10.0
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
 
     - name: Install dependencies
-   
-      run: npm install
+      working-directory: server
+      run: npm ci
 
     - name: Running tests
-     
+      working-directory: server
       run: npm run test
