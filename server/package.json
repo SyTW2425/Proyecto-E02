@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && npm run copy-data",
+    "build": "tsc",
     "start": "node dist/src/app.js",
     "dev": "tsc-watch --onSuccess \"env-cmd -f ./config/dev.env node dist/src/app.js\"",
     "test": "env-cmd -f ./config/test.env mocha --exit",

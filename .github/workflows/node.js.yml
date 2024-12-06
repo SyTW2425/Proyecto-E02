@@ -1,3 +1,42 @@
+# name: Tests
+
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       max-parallel: 1
+#       matrix:
+#         node-version: [16.x, 18.x, 19.x, 20.x, 21.x]
+#         mongodb-version: ['8.0.3']
+
+#     steps:
+#     - name: Git checkout
+#       uses: actions/checkout@v4
+
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#         cache: 'npm'
+#         cache-dependency-path: server/package-lock.json  # Indicamos la ubicación del archivo
+
+#     - name: Install dependencies
+#       working-directory: server
+#       run: npm install
+
+#     - name: Running tests
+#       working-directory: server
+#       run: npm run test
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
 name: Tests
 
 on:
@@ -7,55 +46,30 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  backend-tests:
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 1
       matrix:
-        node-version: [16.x, 18.x, 19.x, 20.x, 21.x]
+        node-version: [17.x, 18.x, 19.x, 20.x, 21.x]
 
     steps:
-    # 1. Checkout del repositorio
-    - name: Git checkout
-      uses: actions/checkout@v4
-
-    # 2. Configuración de Node.js y caché
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: server/package-lock.json
-
-    # 3. Instalación de dependencias
-    - name: Install dependencies
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.10.0
+      with:
+        mongodb-version: '8.0.3'
+    - name: Install Dependencies
+      run: npm i
       working-directory: server
-      run: npm install
-
-    # 4. Configurar variables de entorno
-    - name: Set environment variables
-      run: |
-        echo "ATLAS_URI=mongodb://ale:ale2003@172.16.151.6:27017/database_test" > server/config/test.env
-        echo "PORT=4200" >> server/config/test.env
-
-    # 5. Arranca el servidor y lo ejecuta en segundo plano
-    - name: Start server
+    - name: Set Environment Variables
+      run: echo "MONGODB_URL=${{ secrets.ATLAS_URI }}" >> $GITHUB_ENV
+    - name: Test Backend
+      run: npm test
       working-directory: server
-      run: npm start > server.log 2>&1 &
 
-    # 6. Verifica que el servidor está corriendo
-    - name: Test server connectivity
-      run: curl -I http://localhost:4200
-
-    # 7. Corre los tests
-    - name: Running tests
-      working-directory: server
-      env:
-        MOCHA_TIMEOUT: 10000  # Aumenta el timeout para evitar problemas de espera
-      run: npm run test
-
-    # 8. Muestra logs si algo falla
-    - name: Show server logs
-      if: failure()
-      run: cat server.log
+      

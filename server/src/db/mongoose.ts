@@ -3,6 +3,7 @@ import { connect } from 'mongoose';
 
 dotenv.config(); // Cargar las variables de entorno desde el archivo .env
 
+console.log(process.env.ATLAS_URI);
 /**
  * Connects to the MongoDB database using the provided URL.
  *
