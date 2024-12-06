@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -33,9 +33,9 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
 
     - name: Install dependencies
-      working-directory: backend
+      working-directory: server
       run: npm ci
 
     - name: Running tests
-      working-directory: poke-deck-app
+      working-directory: server
       run: npm run test
