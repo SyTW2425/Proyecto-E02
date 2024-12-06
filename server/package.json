@@ -8,7 +8,7 @@
     "build": "tsc && npm run copy-data",
     "start": "node dist/src/app.js",
     "dev": "tsc-watch --onSuccess \"env-cmd -f ./config/dev.env node dist/src/app.js\"",
-    "test": "env-cmd -f ./config/test.env mocha --exit",
+    "test": "env-cmd -f ./config/test.env mocha --exit --timeout 10000",
     "coverage": "c8 npm test && c8 report --reporter=lcov",
     "doc": "typedoc --out docs src/**/*.ts; touch docs/.nojekyll",
     "copy-data": "cp -r src/data dist/src/data"
