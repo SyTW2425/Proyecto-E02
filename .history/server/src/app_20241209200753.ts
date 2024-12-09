@@ -63,13 +63,6 @@ if (loadDefaultCatalog) {
   // Guardar el catálogo por defecto en la base de datos
   const saveDefaultCatalog = async () => {
     try {
-      const existingCatalog = await Catalog.findOne({
-        name: defaultCatalogData.name,
-      });
-      if (existingCatalog) {
-        await Catalog.deleteOne({ name: defaultCatalogData.name });
-        console.log('Existing catalog deleted');
-      }
       const catalog = new Catalog(defaultCatalogData);
       await catalog.save();
       console.log('Default catalog loaded successfully');

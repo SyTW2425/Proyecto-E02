@@ -66,13 +66,13 @@ if (loadDefaultCatalog) {
       const existingCatalog = await Catalog.findOne({
         name: defaultCatalogData.name,
       });
-      if (existingCatalog) {
-        await Catalog.deleteOne({ name: defaultCatalogData.name });
-        console.log('Existing catalog deleted');
+      if (!existingCatalog) {
+        const catalog = new Catalog(defaultCatalogData);
+        await catalog.save();
+        console.log('Default catalog loaded successfully');
+      } else {
+        console.log('Default catalog already exists');
       }
-      const catalog = new Catalog(defaultCatalogData);
-      await catalog.save();
-      console.log('Default catalog loaded successfully');
     } catch (error) {
       console.error('Error loading default catalog:', error);
     }
