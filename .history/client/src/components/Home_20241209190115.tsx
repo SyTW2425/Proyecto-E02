@@ -36,7 +36,7 @@ const Home = () => {
         </h2>
         <div className="wrapper">
           <section className="section">
-            <Link to="/catalog" className="link-button">
+            <Link to="/catalogo" className="link-button">
               <h2>Catálogo de Cartas</h2>
               <img src="/images/img-sobres-transparency.png" alt="Catálogo de cartas" />
             </Link>
