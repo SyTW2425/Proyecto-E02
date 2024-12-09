@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import { useTheme } from '../context/ThemeContext';
 
 function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +15,7 @@ function NavBar() {
       <h1>PokeDeck</h1>
       <ul>
         <li><Link to="/buscar-usuario">Buscar Usuario</Link></li>
-        <li><Link to="/ajustes">Ajustes</Link></li>
+        <li><Link to="/config">Configuración</Link></li>
         <li><Link to="/logout">Logout</Link></li>
       </ul>
     </nav>
@@ -22,8 +23,10 @@ function NavBar() {
 }
 
 const Home = () => {
+  const { darkMode } = useTheme();
+
   return (
-    <div>
+    <div className={`home-container ${darkMode ? 'dark' : 'light'}`}>
       <header>
         <NavBar />
       </header>
