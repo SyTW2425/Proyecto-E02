@@ -1,132 +1,95 @@
+/* General */
 body, html {
     margin: 0;
     padding: 0;
-    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
     height: 100%;
 }
 
+/* Navbar */
 .navbar {
-    background-color: #282c34;
-    padding: 1rem;
+    background-color: #1e88e5;
+    padding: 0.8rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
-    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
-    left: 0;
+    width: 100%;
     z-index: 1000;
 }
 
 .navbar h1 {
+    font-size: 1.5rem;
     margin: 0;
 }
 
 .navbar ul {
     list-style: none;
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     margin: 0;
-    padding: 0;
-}
-
-.navbar ul li {
-    display: inline;
 }
 
 .navbar ul li a {
-    color: #61dafb;
+    color: white;
     text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .navbar ul li a:hover {
     text-decoration: underline;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar ul {
-        flex-direction: column;
-        display: none;
-    }
-
-    .navbar ul.active {
-        display: flex;
-    }
-
-    .navbar .menu-toggle {
-        display: block;
-        cursor: pointer;
-    }
+/* Wrapper */
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Dos columnas si hay espacio */
+    gap: 1.5rem;
+    padding: 6rem 2rem 2rem; /* Espacio extra para compensar la navbar fija */
+    justify-content: center;
+    align-content: flex-start;
+    min-height: calc(100vh - 6rem); /* Asegurarse que ocupe toda la pantalla */
 }
 
-.menu-toggle {
-    display: none;
-    font-size: 1.5rem;
-    color: #61dafb;
-}
-
-.fullscreen-container {
-    width: 100vw;
-    height: 100vh;
+/* Section Cards */
+.section {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
-    background-image: url('../../public/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    padding-top: 4rem; /* Adjust for navbar height */
-    box-sizing: border-box;
-    margin-top: 1rem; /* Increased margin to separate from the navbar */
-}
-
-.wrapper {
     justify-content: center;
     align-items: center;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 1rem;
-    margin: 1rem;
-}
-
-.section {
-    background-color: rgba(255, 255, 255, 0.7);
-    align-content: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 1rem;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Align items to the top */
-    gap: 3rem;
+    padding: 1.5rem;
     text-align: center;
 }
 
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
 .section h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    color: #1e88e5;
+}
+
+.section img {
+    max-width: 80%;
+    border-radius: 8px;
     margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-size: 2rem; /* Increased font size */
-    color: #222; /* Slightly darker color */
-    font-family: 'Arial Black', Gadget, sans-serif; /* Bolder font */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
-    letter-spacing: 1px; /* Added letter spacing */
-    text-transform: uppercase; /* Uppercase text */
 }
 
 .link-button {
-    display: block;
-    width: 100%;
-    height: 100%;
     text-decoration: none;
     color: inherit;
 }
-
-/* .link-button img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 8px;
-} */

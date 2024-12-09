@@ -5,10 +5,17 @@
   font-family: "Poppins", serif;
 }
 
+body, html {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .box {
   width: 100%;
   max-width: 400px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   padding: 40px;
   background: #1c1c1c;
   border-radius: 5%;
