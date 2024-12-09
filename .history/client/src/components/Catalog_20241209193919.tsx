@@ -23,8 +23,7 @@ const Catalog: React.FC = () => {
         const fetchCatalogs = async () => {
             try {
             const token = localStorage.getItem('token');
-            console.log('token:', JSON.stringify(token));
-            const response = await api.get('/catalogs?name=DefaultCatalog', {
+            const response = await api.get('/catalogs', {
                 headers: {
                 Authorization: `Bearer ${token}`,
                 },

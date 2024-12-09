@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
+import axios from 'axios';
 import './Catalog.css';
 
 interface Catalog {
@@ -22,16 +23,21 @@ const Catalog: React.FC = () => {
     useEffect(() => {
         const fetchCatalogs = async () => {
             try {
-            const token = localStorage.getItem('token');
-            console.log('token:', JSON.stringify(token));
-            const response = await api.get('/catalogs?name=DefaultCatalog', {
-                headers: {
-                Authorization: `Bearer ${token}`,
-                },
-            });
-            setCatalogs(response.data);
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    throw new Error('No token found');
+                }
+                const response = await api.get('/catalogs?name=DefaultCatalog', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setCatalogs(response.data);
             } catch (error) {
-            console.error('Error fetching catalogs:', error);
+                console.error('Error fetching catalogs:', error);
+                if (axios.isAxiosError(error) && error.response && error.response.status === 403) {
+                    console.error('Access forbidden: Check your token and permissions.');
+                }
             }
         };
 
