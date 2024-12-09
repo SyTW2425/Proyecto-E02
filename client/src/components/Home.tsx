@@ -13,6 +13,8 @@ function NavBar() {
     <nav className="navbar">
       <h1>PokeDeck</h1>
       <ul>
+        <li><Link to="/buscar-usuario">Buscar Usuario</Link></li>
+        <li><Link to="/ajustes">Ajustes</Link></li>
         <li><Link to="/logout">Logout</Link></li>
       </ul>
     </nav>
