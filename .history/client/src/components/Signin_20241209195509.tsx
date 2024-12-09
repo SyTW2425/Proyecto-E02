@@ -18,7 +18,6 @@ const Signin: React.FC = () => {
         password,
       });
       response.data.token && localStorage.setItem('token', response.data.token);
-      console.log('response:', response);
       toast.success('Signup successful');
       window.location.href = '/home';
     } catch (error: any) {

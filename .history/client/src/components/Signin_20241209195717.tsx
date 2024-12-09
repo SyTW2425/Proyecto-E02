@@ -19,6 +19,7 @@ const Signin: React.FC = () => {
       });
       response.data.token && localStorage.setItem('token', response.data.token);
       console.log('response:', response);
+      await new Promise(resolve => setTimeout(resolve, 8000000));
       toast.success('Signup successful');
       window.location.href = '/home';
     } catch (error: any) {
