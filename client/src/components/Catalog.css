@@ -1,92 +1,126 @@
-/* General */
+/* Catalog.css */
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--color-background);
-    color: var(--color-text);
-    height: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Evita el scroll horizontal no deseado */
 }
 
-/* Catalog Container */
+/* General container styles */
 .catalog-container {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    min-height: 100vh; /* Asegúrate de que ocupe toda la altura de la pantalla */
+    overflow-y: auto; /* Permite scroll si es necesario */
+    padding: 16px;
+    background-color: #f9f9f9; /* Fondo claro para contraste */
 }
 
 .catalog-container h1 {
     text-align: center;
-    margin-bottom: 2rem;
-    color: var(--color-accent);
+    margin-bottom: 20px;
+    color: #444;
 }
 
-/* Catalog List */
+/* Catalog list styles */
 .catalog-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 
 .catalog-item {
-    background-color: var(--color-secondary-background);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    text-align: center;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 15px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.2s, background-color 0.3s;
 }
 
 .catalog-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.1);
+    background-color: #d4af37;
+    color: white;
 }
 
-.catalog-item:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Cards Container */
+/* Cards container styles */
 .cards-container {
-    margin-top: 2rem;
+    position: relative;
+    margin: 0 auto;
+    overflow-y: visible; /* Asegúrate de mostrar todo */
 }
 
-.cards-container h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var(--color-accent);
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 16px; /* Añade un margen para que las cartas no se peguen */
+    box-sizing: border-box; /* Asegúrate de incluir paddings en el ancho total */
 }
 
-/* Cards List */
 .cards-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsivo */
+    gap: 16px; /* Espaciado entre cartas */
+    width: 100%;
+    max-width: 1200px; /* Opcional: ajusta según tu diseño */
+    overflow-y: auto; /* Scroll si hay demasiadas cartas */
+    max-height: calc(100vh - 100px); /* Altura dinámica ajustada */
+    padding: 16px;
 }
 
 .card-item {
-    background-color: var(--color-secondary-background);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card-item img {
-    max-width: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    padding: 12px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    margin-bottom: 1rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-.card-item:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.card-item p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+/* Hovered card details */
+.card-details {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    max-width: 300px;
+    z-index: 1000;
+}
+
+.card-details h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.card-details div {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
 }
