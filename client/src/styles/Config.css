@@ -25,9 +25,9 @@
 }
 
 .back-button {
-  background-color: #6c757d; /* Color diferente para el botón de vuelta atrás */
+  background-color: #6c757d;
 }
 
 .back-button:hover {
-  background-color: #5a6268; /* Color diferente para el hover del botón de vuelta atrás */
+  background-color: #5a6268;
 }

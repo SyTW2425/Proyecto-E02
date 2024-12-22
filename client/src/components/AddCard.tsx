@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CardFilter from './CardFilter';
 import api from '../api';
-import '../styles/Catalog.css';
+import '../styles/AddCard.css';
 import { useTheme } from '../context/ThemeContext';
 import NavBar from './NavBar';
 import CardGallery from './CardGallery';
@@ -23,7 +23,7 @@ interface Card {
     weakness: string;
     nPokeDex: number;
     hp: number;
-    attacks: string[]; // Cambiado a string[] para los IDs de los ataques
+    attacks: string[]; // Changed to string[] for attack IDs
     retreatCost: string[];
     phase: string;
     description?: string;
@@ -33,11 +33,12 @@ interface Card {
     image?: string;
 }
 
-const Catalog: React.FC = () => {
+const AddCard: React.FC = () => {
     const [catalogs, setCatalogs] = useState<Catalog[]>([]);
     const [selectedCatalog, setSelectedCatalog] = useState<string>('DefaultCatalog');
     const [cards, setCards] = useState<Card[]>([]);
     const [hoveredCard, setHoveredCard] = useState<Card | null>(null);
+    const username = localStorage.getItem('nombre_usuario'); // Assuming username is stored in localStorage
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -87,10 +88,64 @@ const Catalog: React.FC = () => {
         setCards(filteredCards);
     };
 
+    const fetchAttackDetails = async (attackIds: string[]) => {
+        try {
+            const attackDetails = await Promise.all(
+                attackIds.map(async (id) => {
+                    const response = await api.get(`/attacks/${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    console.log('Attack details:', response.data);
+                    return response.data.attack;
+                })
+            );
+            return attackDetails;
+        } catch (error) {
+            console.error('Error fetching attack details:', error);
+            return [];
+        }
+    };
+
+    const handleAddCard = async (card: Card | null) => {
+        if (!card) return;
+        try {
+            const attacks = await fetchAttackDetails(card.attacks);
+            const response = await api.post(`/cards/${username}`, {
+                name: card.name,
+                nPokeDex: card.nPokeDex,
+                type: card.type,
+                weakness: card.weakness,
+                hp: card.hp,
+                attacks: attacks.map(attack => ({
+                    name: attack.name,
+                    energies: attack.energies,
+                    damage: attack.damage,
+                    effect: attack.effect || "", // Ensure effect is included
+                })),
+                retreatCost: card.retreatCost,
+                phase: card.phase,
+                description: card.description || "", // Ensure description is included
+                isHolographic: card.isHolographic,
+                value: card.value,
+                rarity: card.rarity,
+                image: card.image || "", // Ensure image is included
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log('Card added:', response.data);
+        } catch (error) {
+            console.error('Error adding card:', error);
+        }
+    };
+
     return (
-        <div className={`catalog-container ${darkMode ? 'dark' : 'light'}`}>
+        <div className={`add-card-container ${darkMode ? 'dark' : 'light'}`}>
             <NavBar />
-            <div className="catalog-content">
+            <div className="add-card-content">
                 <CardFilter onFilter={handleFilter} setLoading={setLoading} />
                 <h1>Catálogos</h1>
                 <div className="catalog-list">
@@ -115,8 +170,8 @@ const Catalog: React.FC = () => {
                                 <CardGallery 
                                     cards={cards} 
                                     onCardHover={setHoveredCard} 
-                                    className="catalog-card-gallery"
-                                    // No pasar la función onAddCard
+                                    className="add-card-gallery"
+                                    onAddCard={handleAddCard} // Pasar la función handleAddCard
                                 />
                             )
                         )}
@@ -127,4 +182,4 @@ const Catalog: React.FC = () => {
     );
 };
 
-export default Catalog;
+export default AddCard;

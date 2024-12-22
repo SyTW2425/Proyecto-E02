@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Config.css';
+import '../styles/Config.css';
 import { useTheme } from '../context/ThemeContext';
 
 const Config = () => {

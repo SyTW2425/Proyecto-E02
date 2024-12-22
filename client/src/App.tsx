@@ -6,6 +6,9 @@ import Home from './components/Home';
 import Catalog from './components/Catalog';
 import Logout from './components/Logout';
 import Config from './components/Config';
+import MyCollection from './components/Mycollection';
+import AddCard from './components/AddCard';
+import Intercambio from './components/Intercambio';
 import { ThemeProvider } from './context/ThemeContext';
 import './App.css';
 
@@ -21,6 +24,9 @@ function App() {
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/config" element={<Config />} />
+            <Route path="/cartas/:username" element={<MyCollection />} />
+            <Route path="/cartas/add/:username" element={<AddCard />} />
+            <Route path="/intercambio/:username" element={<Intercambio />} />
           </Routes>
         </div>
       </Router>

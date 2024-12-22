@@ -68,6 +68,7 @@ export interface ICard extends Document {
     required: true;
     enum: Rarity;
   };
+  image?: string;
 }
 
 /**
@@ -124,6 +125,10 @@ export const cardSchema: Schema = new Schema<ICard>({
       validator: (value: number) => Number.isInteger(value) && value > 0,
       message: '{VALUE} is not a valid number of PokeDex',
     },
+  },
+  image: {
+    type: String,
+    default: undefined,
   },
   type: {
     type: String,

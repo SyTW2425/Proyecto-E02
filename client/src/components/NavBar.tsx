@@ -1,0 +1,24 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/NavBar.css';
+
+const NavBar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  return (
+    <nav className="navbar">
+      <h1>PokeDeck</h1>
+      <ul>
+        <li><Link to="/buscar-usuario">Buscar Usuario</Link></li>
+        <li><Link to="/config">Configuración</Link></li>
+        <li><Link to="/logout">Logout</Link></li>
+      </ul>
+    </nav>
+  );
+};
+
+export default NavBar;

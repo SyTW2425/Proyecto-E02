@@ -94,7 +94,7 @@ cardRouter.get(
     try {
       const card = await Card.findById(req.params._id);
       if (card) {
-        res.send(card).status(200).json({ msg: 'Carta encontrada con éxito' });
+        res.send(card);
       } else {
         res.status(404).send({ error: 'Carta no encontrada' });
       }
@@ -104,6 +104,25 @@ cardRouter.get(
   }
 );
 
+/**
+ * Manejador para obtener los ataques a partir de un ID del ataque
+ */
+cardRouter.get(
+  '/attacks/:_id',
+  authenticateToken,
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const attack = await AttackModel.findById(req.params._id);
+      if (attack) {
+        res.status(200).json({ msg: 'Ataque encontrado con éxito', attack });
+      } else {
+        res.status(404).send({ error: 'Ataque no encontrado' });
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+);
 /**
  * Manejador para actualizar una carta en la base de datos
  * @param {Request} req - Objeto de petición

@@ -63,6 +63,25 @@ userRouter.get('/users', async (req: Request, res: Response): Promise<void> => {
 });
 
 /**
+ * Manejador para buscar usuarios por nombre
+ * @param {Request} req - Objeto de petición
+ * @param {Response} res - Objeto de respuesta
+ * @returns {Response} - Objeto JSON con los usuarios encontrados o un mensaje de error
+ */
+userRouter.get(
+  '/users/search',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { name } = req.query;
+      const users = await User.find({ name: new RegExp(name as string, 'i') });
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({ message: 'Error searching users', error });
+    }
+  }
+);
+
+/**
  * Manejador para buscar un usuario por su identificador único
  * @param {Request} req - Objeto de petición
  * @param {Response} res - Objeto de respuesta
@@ -154,12 +173,10 @@ userRouter.get(
         res.status(404).json({ msg: 'Usuario no encontrado' });
         return;
       }
-      res
-        .status(200)
-        .json({
-          msg: 'Cartas del usuario encontradas con éxito',
-          cards: user.cards,
-        });
+      res.status(200).json({
+        msg: 'Cartas del usuario encontradas con éxito',
+        cards: user.cards,
+      });
     } catch (error) {
       res
         .status(500)

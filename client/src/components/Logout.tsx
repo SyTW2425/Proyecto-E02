@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import './Logout.css';
+import '../styles/Logout.css';
 
 const Logout: React.FC = () => {
   const navigate = useNavigate();

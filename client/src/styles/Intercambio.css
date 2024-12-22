@@ -1,0 +1,62 @@
+.intercambio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.intercambio-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.user-cards, .search-users {
+  width: 45%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.cards-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-content: center;
+}
+
+.card-item {
+  margin: 10px;
+}
+
+.card-item.small .card {
+  width: 80px;
+  height: 120px;
+}
+
+.card-item.selected {
+  border: 2px solid #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

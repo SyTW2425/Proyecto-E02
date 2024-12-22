@@ -25,7 +25,8 @@
       "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
       "isHolographic": false,
       "value": 5,
-      "rarity": "Common"
+      "rarity": "Common",
+      "image": "https://dz3we2x72f7ol.cloudfront.net/expansions/151/es-es/SV3pt5_ES_1.png"
     },
     {
       "name": "Ivysaur",
@@ -50,7 +51,8 @@
       "description": "When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.",
       "isHolographic": false,
       "value": 10,
-      "rarity": "Uncommon"
+      "rarity": "Uncommon",
+      "image": "https://dz3we2x72f7ol.cloudfront.net/expansions/151/es-es/SV3pt5_ES_2.png"
     },
     {
       "name": "Venusaur",
@@ -72,11 +74,12 @@
         }
       ],
       "retreatCost": ["Colorless", "Colorless", "Colorless"],
-      "phase": "Stage 2",
+      "phase": "EX",
       "description": "Its plant blooms when it is absorbing solar energy. It stays on the move to seek sunlight.",
       "isHolographic": true,
       "value": 25,
-      "rarity": "Rare"
+      "rarity": "Rare",
+      "image": "https://dz3we2x72f7ol.cloudfront.net/expansions/151/es-es/SV3pt5_ES_3.png"
     },
     {
       "name": "Charmander",
@@ -97,7 +100,8 @@
       "description": "The flame at the tip of its tail makes a sound as it burns. You can only hear it in quiet places.",
       "isHolographic": false,
       "value": 5,
-      "rarity": "Common"
+      "rarity": "Common",
+      "image": "https://dz3we2x72f7ol.cloudfront.net/expansions/151/es-es/SV3pt5_ES_4.png"
     },
     {
       "name": "Charmeleon",
@@ -123,7 +127,8 @@
       "description": "When it swings its burning tail, it elevates the temperature to unbearably high levels.",
       "isHolographic": false,
       "value": 10,
-      "rarity": "Uncommon"
+      "rarity": "Uncommon",
+      "image": "https://dz3we2x72f7ol.cloudfront.net/expansions/151/es-es/SV3pt5_ES_5.png"
     },
     {
       "name": "Charizard",
@@ -149,7 +154,8 @@
       "description": "Spits fire that is hot enough to melt boulders. Known to cause forest fires unintentionally.",
       "isHolographic": true,
       "value": 30,
-      "rarity": "Rare"
+      "rarity": "Rare",
+      "image": "https://dz3we2x72f7ol.cloudfront.net/expansions/151/es-es/SV3pt5_ES_6.png"
     },
     {
       "name": "Squirtle",

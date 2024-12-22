@@ -1,34 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';
+import '../styles/Home.css';
 import { useTheme } from '../context/ThemeContext';
-
-function NavBar() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  return (
-    <nav className="navbar">
-      <h1>PokeDeck</h1>
-      <ul>
-        <li><Link to="/buscar-usuario">Buscar Usuario</Link></li>
-        <li><Link to="/config">Configuración</Link></li>
-        <li><Link to="/logout">Logout</Link></li>
-      </ul>
-    </nav>
-  );
-}
 
 const Home = () => {
   const { darkMode } = useTheme();
 
+  const username = localStorage.getItem('nombre_usuario');
   return (
     <div className={`home-container ${darkMode ? 'dark' : 'light'}`}>
       <header>
-        <NavBar />
+        <nav className="navbar">
+          <h1>PokeDeck</h1>
+          <ul>
+            <li><Link to="/buscar-usuario">Buscar Usuario</Link></li>
+            <li><Link to="/config">Configuración</Link></li>
+            <li><Link to="/logout">Logout</Link></li>
+          </ul>
+        </nav>
       </header>
       <main>
         <h2 style={{ textAlign: 'center', marginTop: '5rem', color: '#333' }}>
@@ -42,7 +31,7 @@ const Home = () => {
             </Link>
           </section>
           <section className="section">
-            <Link to={`/cartas/${localStorage.getItem('nombre_usuario')}`} className="link-button">
+            <Link to={`/cartas/${username}`} className="link-button">
               <h2>Tu Colección</h2>
               <img src="/images/img-rotom.png" alt="Tu colección de cartas" />
             </Link>
@@ -54,7 +43,7 @@ const Home = () => {
             </Link>
           </section>
           <section className="section">
-            <Link to={'/intercambio'} className="link-button">
+            <Link to={`/intercambio/${username}`} className="link-button">
               <h2>Intercambio de Cartas</h2>
               <img src="/images/img-intercambio.png" alt="Intercambio de cartas" />
             </Link>

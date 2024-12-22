@@ -1,0 +1,191 @@
+/* Card.css */
+
+/* General card item styles */
+.card-item {
+    position: relative;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 248px;
+    height: 346px;
+    /* margin: 10px; */
+}
+
+/* Hover effect for card item */
+.card-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Card container with 3D perspective */
+.card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease;
+    position: relative;
+    transform-style: flat;
+}
+
+/* Card without perspective */
+.card:not(.perspective-card) {
+    border-radius: 4.25% 3%;
+    overflow: hidden;
+}
+
+/* Image wrapper inside the card */
+.card__img-wrapper {
+    position: relative;
+    transform-style: preserve-3d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Common styles for card images and shine effect */
+.card__img, .card__shine {
+    border-radius: 4.25% 3%;
+    overflow: hidden;
+}
+
+/* Front and back images of the card */
+.card__img {
+    width: 100%;
+    transition: transform 0.2s ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Image inside the card */
+.card__img img {
+    display: block;
+    width: 100%;
+    image-rendering: optimizeQuality;
+}
+
+/* Back image of the card */
+.card__img--back {
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: rotateY(180deg) translateZ(-1px);
+    width: 100%;
+}
+
+/* Front image of the card */
+.card__img--front {
+    position: relative;
+    transform: translateZ(2px);
+}
+
+/* Shine effect on the card */
+.card__shine {
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transform: translateZ(2px);
+    width: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 75%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Shadow effect on the card */
+.card--shadow .card__img-wrapper {
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5));
+}
+
+/* Keyframes for shimmer animation */
+@keyframes cardShimmer {
+    0% {
+        transform: translate(-100%, -100%);
+    }
+    20%, 100% {
+        transform: translate(100%, 100%);
+    }
+}
+
+/* Shimmer effect on the card */
+.card--shimmer .card__shine {
+    opacity: 1;
+}
+
+/* Shimmer animation on the card */
+.card--shimmer .card__shine-shimmer {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    animation: cardShimmer 5s linear infinite;
+    mix-blend-mode: luminosity;
+    transform: translate(-100%, -100%);
+}
+
+/* Shimmer effect details */
+.card--shimmer .card__shine-shimmer::after {
+    background: linear-gradient(to bottom, rgba(255,255,255,0), white, rgba(255,255,255,0));
+    content: "";
+    height: 20%;
+    left: -50%;
+    opacity: 0.7;
+    position: absolute;
+    top: 40%;
+    transform: rotate(-45deg);
+    width: 200%;
+}
+
+/* Card information container */
+.card-info {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: calc(100% - 20px); /* Adjust width to fit within the card */
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Show card information on hover */
+.card-item:hover .card-info {
+    opacity: 1;
+}
+
+/* Card name styling */
+.card-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+}
+
+/* Card type and HP styling */
+.card-type, .card-hp {
+    font-size: 1rem;
+    margin: 2px 0;
+    color: #ddd;
+}
+
+.add-card-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-card-button:hover {
+    background-color: #0056b3;
+}

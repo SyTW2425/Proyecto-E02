@@ -1,0 +1,34 @@
+.cards-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+
+.card-item {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease;
+}
+
+.card-item:hover {
+    transform: scale(1.05);
+}
+
+.card__img-wrapper {
+    position: relative;
+    transform-style: preserve-3d;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card__img {
+    width: 100%;
+    transition: transform 0.2s ease;
+}
+
+.card__img img {
+    display: block;
+    width: 100%;
+    image-rendering: optimizeQuality;
+}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './SignupSignin.css';
+import '../styles/SignupSignin.css';
 import api from '../api';
 
 const Signup: React.FC = () => {
@@ -27,6 +27,7 @@ const Signup: React.FC = () => {
         email,
         password,
       });
+      localStorage.setItem('nombre_usuario', username);
       toast.success('Signup successful');
       window.location.href = '/';
     } catch (error: any) {
@@ -37,54 +38,57 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="box">
-      <ToastContainer />
-      <h2>Signup</h2>
-      {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder='Enter username'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          autoComplete="username"
-        />
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder='Enter email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          autoComplete="email"
-        />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder='Enter password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          autoComplete="new-password"
-        />
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          placeholder='Confirm password'
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-          autoComplete="new-password"
-        />
-        <button type="submit">Signup</button>
-      </form>
-      <p>¿Ya tienes cuenta? <Link to="/">Inicia Sesión</Link></p>
+    <div>
+      <img src="/images/PoKeDeCk-19-12-2024.png" alt="Logo" className="logo" />
+      <div className="box">
+        <ToastContainer />
+        <h2>Signup</h2>
+        {error && <p className="error">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder='Enter username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            autoComplete="username"
+          />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder='Enter email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder='Enter password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete="new-password"
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder='Confirm password'
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            autoComplete="new-password"
+          />
+          <button type="submit">Signup</button>
+        </form>
+        <p>¿Ya tienes cuenta? <Link to="/">Inicia Sesión</Link></p>
+      </div>
     </div>
   );
 };
