@@ -43,36 +43,38 @@ const Signin: React.FC = () => {
   };
 
   return (
-    <div>
-      <img src="/images/PoKeDeCk-19-12-2024.png" alt="Logo" className="logo" />
-      <div className="box">
-        <ToastContainer />
-        <h2>Signin</h2>
-        {error && <p className="error">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder='Enter email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="email"
-          />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="current-password"
-          />
-          <button type="submit">Signin</button>
-        </form>
-        <p>¿No tienes cuenta? <Link to="/signup">Regístrate</Link></p>
+    <div className="signup-signin-background">
+      <div className="signup-signin-container">
+        <img src="/images/PoKeDeCk-19-12-2024.png" alt="Logo" className="logo" />
+        <div className="box">
+          <ToastContainer />
+          <h2>Signin</h2>
+          {error && <p className="error">{error}</p>}
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder='Enter email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder='Enter password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
+            <button type="submit">Signin</button>
+          </form>
+          <p>¿No tienes cuenta? <Link to="/signup">Regístrate</Link></p>
+        </div>
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ const Home = () => {
         <nav className="navbar">
           <h1>PokeDeck</h1>
           <ul>
-            <li><Link to="/buscar-usuario">Buscar Usuario</Link></li>
             <li><Link to="/config">Configuración</Link></li>
             <li><Link to="/logout">Logout</Link></li>
           </ul>
@@ -38,8 +37,8 @@ const Home = () => {
           </section>
           <section className="section">
             <Link to={`/cartas/popular`} className="link-button">
-              <h2>Cartas Más Populares</h2>
-              <img src="/images/cartas-valiosas-background.png" alt="Cartas más populares" />
+              <h2>Buzón</h2>
+              <img src="/images/buzon.png" alt="buzon" />
             </Link>
           </section>
           <section className="section">

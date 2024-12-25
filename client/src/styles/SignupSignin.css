@@ -8,12 +8,13 @@
   font-weight: bold;
 }
 
-body, html {
-  height: 100%;
+.signup-signin-background {
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('/home/usuario/Proyecto-E02/client/public/images/Fondovaporeon.jpg') no-repeat center center fixed;
+  background: url('/home/usuario/Proyecto-E02/client/public/images/Fondovaporeon.jpg') no-repeat center center;
   background-size: cover;
 }
 

@@ -38,56 +38,58 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div>
-      <img src="/images/PoKeDeCk-19-12-2024.png" alt="Logo" className="logo" />
-      <div className="box">
-        <ToastContainer />
-        <h2>Signup</h2>
-        {error && <p className="error">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder='Enter username'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            autoComplete="username"
-          />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder='Enter email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="email"
-          />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="new-password"
-          />
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder='Confirm password'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            autoComplete="new-password"
-          />
-          <button type="submit">Signup</button>
-        </form>
-        <p>¿Ya tienes cuenta? <Link to="/">Inicia Sesión</Link></p>
+    <div className="signup-signin-background">
+      <div className="signup-signin-container">
+        <img src="/images/PoKeDeCk-19-12-2024.png" alt="Logo" className="logo" />
+        <div className="box">
+          <ToastContainer />
+          <h2>Signup</h2>
+          {error && <p className="error">{error}</p>}
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder='Enter username'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              autoComplete="username"
+            />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder='Enter email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder='Enter password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="new-password"
+            />
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder='Confirm password'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              autoComplete="new-password"
+            />
+            <button type="submit">Signup</button>
+          </form>
+          <p>¿Ya tienes cuenta? <Link to="/">Inicia Sesión</Link></p>
+        </div>
       </div>
     </div>
   );

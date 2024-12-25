@@ -7,6 +7,8 @@ import { useTheme } from '../context/ThemeContext';
 import NavBar from './NavBar';
 import CardGallery from './CardGallery';
 import LoadingIndicator from './LoadingIndicator';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const token = localStorage.getItem('token');
 console.log('token:', token);
@@ -137,8 +139,10 @@ const AddCard: React.FC = () => {
                 },
             });
             console.log('Card added:', response.data);
+            toast.success('Card added successfully!');
         } catch (error) {
             console.error('Error adding card:', error);
+            toast.error('Failed to add card.');
         }
     };
 
@@ -146,6 +150,7 @@ const AddCard: React.FC = () => {
         <div className={`add-card-container ${darkMode ? 'dark' : 'light'}`}>
             <NavBar />
             <div className="add-card-content">
+                <ToastContainer />
                 <CardFilter onFilter={handleFilter} setLoading={setLoading} />
                 <h1>Catálogos</h1>
                 <div className="catalog-list">
