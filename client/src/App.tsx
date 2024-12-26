@@ -27,6 +27,7 @@ function App() {
             <Route path="/cartas/:username" element={<MyCollection />} />
             <Route path="/cartas/add/:username" element={<AddCard />} />
             <Route path="/intercambio/:username" element={<Intercambio />} />
+            {/* <Route path="/mail" element={<Mail />} /> */}
           </Routes>
         </div>
       </Router>

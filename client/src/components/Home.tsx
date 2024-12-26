@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
 import { useTheme } from '../context/ThemeContext';
+import NavBar from './NavBar';
+import '../styles/NavBar.css';
 
 const Home = () => {
   const { darkMode } = useTheme();
@@ -17,6 +19,7 @@ const Home = () => {
             <li><Link to="/logout">Logout</Link></li>
           </ul>
         </nav>
+        {/* <NavBar /> */}
       </header>
       <main>
         <h2 style={{ textAlign: 'center', marginTop: '5rem', color: '#333' }}>
@@ -36,7 +39,7 @@ const Home = () => {
             </Link>
           </section>
           <section className="section">
-            <Link to={`/cartas/popular`} className="link-button">
+            <Link to={`/mail`} className="link-button">
               <h2>Buzón</h2>
               <img src="/images/buzon.png" alt="buzon" />
             </Link>
