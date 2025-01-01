@@ -44,10 +44,10 @@ const Signin: React.FC = () => {
 
   return (
     <div className="signup-signin-background">
+      <ToastContainer />
       <div className="signup-signin-container">
         <img src="/images/PoKeDeCk-19-12-2024.png" alt="Logo" className="logo" />
         <div className="box">
-          <ToastContainer />
           <h2>Signin</h2>
           {error && <p className="error">{error}</p>}
           <form onSubmit={handleSubmit}>

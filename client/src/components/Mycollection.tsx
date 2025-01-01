@@ -3,6 +3,8 @@ import '../styles/Mycollection.css';
 import api from '../api';
 import { useTheme } from '../context/ThemeContext';
 import NavBar from './NavBar';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Card {
   _id: string;
@@ -68,18 +70,21 @@ const MyCollection: React.FC = () => {
       });
       setCards(cards.filter(card => card._id !== cardId));
       console.log(`Card ${cardId} deleted`);
+      toast.success('Card deleted successfully!');
     } catch (error) {
       console.error('Error deleting card:', error);
+      toast.error('Error deleting card');
     }
   };
 
   return (
     <div className={`collection-container ${darkMode ? 'dark' : 'light'}`}>
-      <NavBar />
-      <div className="collection-content">
+        <NavBar />
+      <main className="collection-content">
+      <ToastContainer />
         <h1>Mi Colección</h1>
         <a href={`/cartas/add/${username}`} className="add-card-button">Añadir Carta</a>
-        <div className="cards-container">
+        <div className="cards-content">
           {cards.length === 0 ? (
             <p>No se encontraron cartas.</p>
           ) : (
@@ -106,7 +111,7 @@ const MyCollection: React.FC = () => {
             </div>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 };

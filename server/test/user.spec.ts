@@ -348,3 +348,257 @@ describe('GET /users/:id/cards', () => {
     expect(response.body).to.have.property('msg', 'Usuario no encontrado');
   });
 });
+// Pruebas para agregar una nueva solicitud de intercambio al buzón de un usuario
+describe('POST /users/:id/mailbox', () => {
+  let testUser: InstanceType<typeof User>;
+
+  beforeEach(async () => {
+    await User.deleteMany({});
+    testUser = new User({
+      name: 'user1',
+      email: 'user1@example.com',
+      password: 'Str0ngP@ssw0rd!123',
+    });
+    await testUser.save();
+  });
+
+  it('debería agregar una nueva solicitud de intercambio', async () => {
+    const tradeRequest = {
+      requesterUserId: new mongoose.Types.ObjectId(),
+      requesterCardId: new mongoose.Types.ObjectId(),
+      targetUserId: new mongoose.Types.ObjectId(),
+      targetCardId: new mongoose.Types.ObjectId(),
+      message: 'Intercambio de prueba',
+    };
+
+    const response = await request(app)
+      .post(`/users/${testUser._id}/mailbox`)
+      .send(tradeRequest)
+      .expect(201);
+
+    expect(response.body).to.have.property(
+      'msg',
+      'Solicitud de intercambio agregada'
+    );
+    expect(response.body).to.have.property('mailbox');
+    expect(response.body.mailbox).to.be.an('array');
+    expect(response.body.mailbox[0]).to.include({
+      message: 'Intercambio de prueba',
+    });
+    expect(response.body.mailbox[0].requesterUserId).to.equal(
+      tradeRequest.requesterUserId.toString()
+    );
+    expect(response.body.mailbox[0].requesterCardId).to.equal(
+      tradeRequest.requesterCardId.toString()
+    );
+    expect(response.body.mailbox[0].targetUserId).to.equal(
+      tradeRequest.targetUserId.toString()
+    );
+    expect(response.body.mailbox[0].targetCardId).to.equal(
+      tradeRequest.targetCardId.toString()
+    );
+  });
+
+  it('debería devolver un error si el usuario no existe', async () => {
+    const nonExistentId = new mongoose.Types.ObjectId();
+    const tradeRequest = {
+      requesterUserId: new mongoose.Types.ObjectId(),
+      requesterCardId: new mongoose.Types.ObjectId(),
+      targetUserId: new mongoose.Types.ObjectId(),
+      targetCardId: new mongoose.Types.ObjectId(),
+      message: 'Intercambio de prueba',
+    };
+
+    const response = await request(app)
+      .post(`/users/${nonExistentId}/mailbox`)
+      .send(tradeRequest)
+      .expect(404);
+
+    expect(response.body).to.have.property('msg', 'Usuario no encontrado');
+  });
+});
+
+// Pruebas para obtener todas las solicitudes de intercambio del buzón de un usuario
+describe('GET /users/:id/mailbox', () => {
+  let testUser: InstanceType<typeof User>;
+
+  beforeEach(async () => {
+    await User.deleteMany({});
+    testUser = new User({
+      name: 'user1',
+      email: 'user1@example.com',
+      password: 'Str0ngP@ssw0rd!123',
+      mailbox: [
+        {
+          requesterUserId: new mongoose.Types.ObjectId(),
+          requesterCardId: new mongoose.Types.ObjectId(),
+          targetUserId: new mongoose.Types.ObjectId(),
+          targetCardId: new mongoose.Types.ObjectId(),
+          message: 'Intercambio de prueba',
+        },
+      ],
+    });
+    await testUser.save();
+  });
+
+  it('debería obtener todas las solicitudes de intercambio del buzón de un usuario', async () => {
+    const response = await request(app)
+      .get(`/users/${testUser._id}/mailbox`)
+      .expect(200);
+
+    expect(response.body).to.have.property('mailbox');
+    expect(response.body.mailbox).to.be.an('array');
+    expect(response.body.mailbox[0]).to.include({
+      message: 'Intercambio de prueba',
+    });
+  });
+
+  it('debería devolver un error si el usuario no existe', async () => {
+    const nonExistentId = new mongoose.Types.ObjectId();
+
+    const response = await request(app)
+      .get(`/users/${nonExistentId}/mailbox`)
+      .expect(404);
+
+    expect(response.body).to.have.property('msg', 'Usuario no encontrado');
+  });
+});
+
+// Pruebas para actualizar una solicitud de intercambio en el buzón de un usuario
+describe('PUT /users/:id/mailbox/:requestId', () => {
+  let testUser: InstanceType<typeof User>;
+  let tradeRequestId: mongoose.Types.ObjectId;
+
+  beforeEach(async () => {
+    await User.deleteMany({});
+    tradeRequestId = new mongoose.Types.ObjectId();
+    testUser = new User({
+      name: 'user1',
+      email: 'user1@example.com',
+      password: 'Str0ngP@ssw0rd!123',
+      mailbox: [
+        {
+          _id: tradeRequestId,
+          requesterUserId: new mongoose.Types.ObjectId(),
+          requesterCardId: new mongoose.Types.ObjectId(),
+          targetUserId: new mongoose.Types.ObjectId(),
+          targetCardId: new mongoose.Types.ObjectId(),
+          message: 'Intercambio de prueba',
+        },
+      ],
+    });
+    await testUser.save();
+  });
+
+  it('debería actualizar una solicitud de intercambio existente', async () => {
+    const updatedRequest = {
+      message: 'Mensaje actualizado',
+    };
+
+    const response = await request(app)
+      .put(`/users/${testUser._id}/mailbox/${tradeRequestId}`)
+      .send(updatedRequest)
+      .expect(200);
+
+    expect(response.body).to.have.property(
+      'msg',
+      'Solicitud de intercambio actualizada'
+    );
+    expect(response.body).to.have.property('mailbox');
+    expect(response.body.mailbox[0]).to.include(updatedRequest);
+  });
+
+  it('debería devolver un error si la solicitud de intercambio no existe', async () => {
+    const nonExistentRequestId = new mongoose.Types.ObjectId();
+    const updatedRequest = {
+      message: 'Mensaje actualizado',
+    };
+
+    const response = await request(app)
+      .put(`/users/${testUser._id}/mailbox/${nonExistentRequestId}`)
+      .send(updatedRequest)
+      .expect(404);
+
+    expect(response.body).to.have.property(
+      'msg',
+      'Solicitud de intercambio no encontrada'
+    );
+  });
+
+  it('debería devolver un error si el usuario no existe', async () => {
+    const nonExistentId = new mongoose.Types.ObjectId();
+    const updatedRequest = {
+      message: 'Mensaje actualizado',
+    };
+
+    const response = await request(app)
+      .put(`/users/${nonExistentId}/mailbox/${tradeRequestId}`)
+      .send(updatedRequest)
+      .expect(404);
+
+    expect(response.body).to.have.property('msg', 'Usuario no encontrado');
+  });
+});
+
+// Pruebas para eliminar una solicitud de intercambio del buzón de un usuario
+describe('DELETE /users/:id/mailbox/:requestId', () => {
+  let testUser: InstanceType<typeof User>;
+  let tradeRequestId: mongoose.Types.ObjectId;
+
+  beforeEach(async () => {
+    await User.deleteMany({});
+    tradeRequestId = new mongoose.Types.ObjectId();
+    testUser = new User({
+      name: 'user1',
+      email: 'user1@example.com',
+      password: 'Str0ngP@ssw0rd!123',
+      mailbox: [
+        {
+          _id: tradeRequestId,
+          requesterUserId: new mongoose.Types.ObjectId(),
+          requesterCardId: new mongoose.Types.ObjectId(),
+          targetUserId: new mongoose.Types.ObjectId(),
+          targetCardId: new mongoose.Types.ObjectId(),
+          message: 'Intercambio de prueba',
+        },
+      ],
+    });
+    await testUser.save();
+  });
+
+  it('debería eliminar una solicitud de intercambio existente', async () => {
+    const response = await request(app)
+      .delete(`/users/${testUser._id}/mailbox/${tradeRequestId}`)
+      .expect(200);
+
+    expect(response.body).to.have.property(
+      'msg',
+      'Solicitud de intercambio eliminada'
+    );
+    expect(response.body).to.have.property('mailbox');
+    expect(response.body.mailbox).to.be.an('array').that.is.empty;
+  });
+
+  it('debería devolver un error si la solicitud de intercambio no existe', async () => {
+    const nonExistentRequestId = new mongoose.Types.ObjectId();
+
+    const response = await request(app)
+      .delete(`/users/${testUser._id}/mailbox/${nonExistentRequestId}`)
+      .expect(404);
+
+    expect(response.body).to.have.property(
+      'msg',
+      'Solicitud de intercambio no encontrada'
+    );
+  });
+
+  it('debería devolver un error si el usuario no existe', async () => {
+    const nonExistentId = new mongoose.Types.ObjectId();
+
+    const response = await request(app)
+      .delete(`/users/${nonExistentId}/mailbox/${tradeRequestId}`)
+      .expect(404);
+
+    expect(response.body).to.have.property('msg', 'Usuario no encontrado');
+  });
+});

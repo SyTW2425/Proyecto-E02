@@ -1,0 +1,22 @@
+.trade-requests-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.trade-request-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trade-request-item p {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.trade-request-item button {
+  margin-left: 10px;
+}

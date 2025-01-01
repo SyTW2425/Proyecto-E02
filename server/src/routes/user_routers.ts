@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
-import User from '../models/user.js';
+import User, { TradeRequest } from '../models/user.js';
+import mongoose from 'mongoose';
 
 export const userRouter = express.Router();
 userRouter.use(express.json());
@@ -181,6 +182,226 @@ userRouter.get(
       res
         .status(500)
         .json({ msg: 'Error al buscar las cartas del usuario', error });
+    }
+  }
+);
+
+/**
+ * Ruta para agregar una nueva solicitud de intercambio al buzón de un usuario.
+ */
+userRouter.post(
+  '/users/:id/mailbox',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        res.status(404).json({ msg: 'Usuario no encontrado' });
+        return;
+      }
+      const tradeRequest = {
+        ...req.body,
+        requesterUserId: new mongoose.Types.ObjectId(req.body.requesterUserId),
+        requesterCardId: new mongoose.Types.ObjectId(req.body.requesterCardId),
+        targetUserId: new mongoose.Types.ObjectId(req.body.targetUserId),
+        targetCardId: new mongoose.Types.ObjectId(req.body.targetCardId),
+      };
+      user.mailbox.push(tradeRequest);
+      await user.save();
+      res.status(201).json({
+        msg: 'Solicitud de intercambio agregada',
+        mailbox: user.mailbox,
+      });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ msg: 'Error al agregar la solicitud de intercambio', error });
+    }
+  }
+);
+
+/**
+ * Ruta para obtener todas las solicitudes de intercambio del buzón de un usuario.
+ */
+userRouter.get(
+  '/users/:id/mailbox',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        res.status(404).json({ msg: 'Usuario no encontrado' });
+        return;
+      }
+      res.status(200).json({ mailbox: user.mailbox });
+    } catch (error) {
+      res.status(500).json({
+        msg: 'Error al obtener las solicitudes de intercambio',
+        error,
+      });
+    }
+  }
+);
+
+/**
+ * Ruta para actualizar una solicitud de intercambio en el buzón de un usuario.
+ */
+userRouter.put(
+  '/users/:id/mailbox/:requestId',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        res.status(404).json({ msg: 'Usuario no encontrado' });
+        return;
+      }
+      const requestIndex = user.mailbox.findIndex(
+        (request) => request._id.toString() === req.params.requestId
+      );
+      if (requestIndex === -1) {
+        res.status(404).json({ msg: 'Solicitud de intercambio no encontrada' });
+        return;
+      }
+      user.mailbox[requestIndex] = {
+        ...user.mailbox[requestIndex],
+        ...req.body,
+        requesterUserId: new mongoose.Types.ObjectId(req.body.requesterUserId),
+        requesterCardId: new mongoose.Types.ObjectId(req.body.requesterCardId),
+        targetUserId: new mongoose.Types.ObjectId(req.body.targetUserId),
+        targetCardId: new mongoose.Types.ObjectId(req.body.targetCardId),
+      };
+      await user.save();
+      res.status(200).json({
+        msg: 'Solicitud de intercambio actualizada',
+        mailbox: user.mailbox,
+      });
+    } catch (error) {
+      res.status(500).json({
+        msg: 'Error al actualizar la solicitud de intercambio',
+        error,
+      });
+    }
+  }
+);
+
+/**
+ * Ruta para eliminar una solicitud de intercambio del buzón de un usuario.
+ */
+userRouter.delete(
+  '/users/:id/mailbox/:requestId',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        res.status(404).json({ msg: 'Usuario no encontrado' });
+        return;
+      }
+      const requestIndex = user.mailbox.findIndex(
+        (request) => request._id.toString() === req.params.requestId
+      );
+      if (requestIndex === -1) {
+        res.status(404).json({ msg: 'Solicitud de intercambio no encontrada' });
+        return;
+      }
+      user.mailbox.splice(requestIndex, 1);
+      await user.save();
+      res.status(200).json({
+        msg: 'Solicitud de intercambio eliminada',
+        mailbox: user.mailbox,
+      });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ msg: 'Error al eliminar la solicitud de intercambio', error });
+    }
+  }
+);
+
+/**
+ * Ruta para aceptar una solicitud de intercambio.
+ */
+userRouter.post(
+  '/users/:id/mailbox/:requestId/accept',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        res.status(404).json({ msg: 'Usuario no encontrado' });
+        return;
+      }
+      const requestIndex = user.mailbox.findIndex(
+        (request) => request._id.toString() === req.params.requestId
+      );
+      if (requestIndex === -1) {
+        res.status(404).json({ msg: 'Solicitud de intercambio no encontrada' });
+        return;
+      }
+      const tradeRequest = user.mailbox[requestIndex];
+      const requesterUser = await User.findById(tradeRequest.requesterUserId);
+      if (!requesterUser) {
+        res.status(404).json({ msg: 'Usuario solicitante no encontrado' });
+        return;
+      }
+
+      // Realizar el intercambio de cartas
+      const requesterCardIndex = requesterUser.cards.findIndex(
+        (cardTuple) => cardTuple.card.toString() === tradeRequest.requesterCardId.toString()
+      );
+      const targetCardIndex = user.cards.findIndex(
+        (cardTuple) => cardTuple.card.toString() === tradeRequest.targetCardId.toString()
+      );
+
+      if (requesterCardIndex === -1 || targetCardIndex === -1) {
+        res.status(404).json({ msg: 'Una o ambas cartas no fueron encontradas' });
+        return;
+      }
+
+      const [requesterCard] = requesterUser.cards.splice(requesterCardIndex, 1);
+      const [targetCard] = user.cards.splice(targetCardIndex, 1);
+
+      requesterUser.cards.push(targetCard);
+      user.cards.push(requesterCard);
+
+      // Guardar los cambios en la base de datos
+      await requesterUser.save();
+      await user.save();
+
+      // Eliminar la solicitud de intercambio
+      user.mailbox.splice(requestIndex, 1);
+      await user.save();
+
+      res.status(200).json({ msg: 'Intercambio aceptado y realizado con éxito' });
+    } catch (error) {
+      res.status(500).json({ msg: 'Error al aceptar la solicitud de intercambio', error });
+    }
+  }
+);
+
+/**
+ * Ruta para rechazar una solicitud de intercambio.
+ */
+userRouter.post(
+  '/users/:id/mailbox/:requestId/reject',
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        res.status(404).json({ msg: 'Usuario no encontrado' });
+        return;
+      }
+      const requestIndex = user.mailbox.findIndex(
+        (request) => request._id.toString() === req.params.requestId
+      );
+      if (requestIndex === -1) {
+        res.status(404).json({ msg: 'Solicitud de intercambio no encontrada' });
+        return;
+      }
+
+      // Eliminar la solicitud de intercambio
+      user.mailbox.splice(requestIndex, 1);
+      await user.save();
+
+      res.status(200).json({ msg: 'Solicitud de intercambio rechazada y eliminada con éxito' });
+    } catch (error) {
+      res.status(500).json({ msg: 'Error al rechazar la solicitud de intercambio', error });
     }
   }
 );

@@ -9,6 +9,7 @@ import Config from './components/Config';
 import MyCollection from './components/Mycollection';
 import AddCard from './components/AddCard';
 import Intercambio from './components/Intercambio';
+import Mail from './components/Mail';
 import { ThemeProvider } from './context/ThemeContext';
 import './App.css';
 
@@ -27,7 +28,7 @@ function App() {
             <Route path="/cartas/:username" element={<MyCollection />} />
             <Route path="/cartas/add/:username" element={<AddCard />} />
             <Route path="/intercambio/:username" element={<Intercambio />} />
-            {/* <Route path="/mail" element={<Mail />} /> */}
+            <Route path="/mail" element={<Mail />} />
           </Routes>
         </div>
       </Router>

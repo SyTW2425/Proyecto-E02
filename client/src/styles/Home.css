@@ -9,6 +9,18 @@ body, html {
     width: 100%;
 }
 
+/* home background */
+.home-background {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    background: url('/home/usuario/Proyecto-E02/client/public/images/home-background.jpg') no-repeat center center;
+    background-size: cover;
+}
+
 /* Wrapper */
 .wrapper {
     display: grid;

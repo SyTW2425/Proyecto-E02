@@ -1,5 +1,5 @@
 /* General */
-body, html {
+/* body, html {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
@@ -7,34 +7,33 @@ body, html {
     color: var(--color-text);
     height: 100%;
     width: 100%;
-}
+} */
 
 /* Contenedor principal del catálogo */
 .catalog-container {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     box-sizing: border-box;
-    position: fixed;
+}
+
+/* Contenido del catálogo */
+.catalog-content {
+    position: relative;
     top: 0;
     left: 0;
     overflow-y: auto;
     margin: 0;
     padding: 0;
-    padding-top: 6rem;
     background-image: url('../../public/images/fondo-catalogos.png');
     background-size: auto;
     background-position: center;
     background-repeat: repeat;
     gap: 10px;
-}
-
-/* Contenido del catálogo */
-.catalog-content {
-    padding: 2rem;
+    padding-top: 6rem;
 }
 
 /* Estilos para los encabezados h1 y h2 */
-.catalog-container h1 {
+.catalog-content h1 {
     color: #333;
     font-size: 2.5rem;
     font-weight: bold;
@@ -44,7 +43,7 @@ body, html {
     letter-spacing: 2px;
 }
 
-.catalog-container h2 {
+.catalog-content h2 {
     color: #555;
     font-size: 2rem;
     font-weight: semi-bold;

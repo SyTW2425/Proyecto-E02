@@ -89,9 +89,7 @@ const Catalog: React.FC = () => {
 
     return (
         <div className={`catalog-container ${darkMode ? 'dark' : 'light'}`}>
-            <header/>
-                <NavBar />
-            <header/>
+            <NavBar />
             <div className="catalog-content">
                 <CardFilter onFilter={handleFilter} setLoading={setLoading} />
                 <h1>Catálogos</h1>
