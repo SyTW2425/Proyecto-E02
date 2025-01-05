@@ -5,6 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 import NavBar from './NavBar';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingIndicator from './LoadingIndicator'; // Import LoadingIndicator
 
 interface Card {
   _id: string;
@@ -28,9 +29,11 @@ const MyCollection: React.FC = () => {
   const { darkMode } = useTheme();
   const userId = localStorage.getItem('id_usuario');
   const username = localStorage.getItem('nombre_usuario');
+  const [loading, setLoading] = useState<boolean>(true); // Add loading state
 
   useEffect(() => {
     const fetchUserCards = async () => {
+      setLoading(true); // Set loading to true when fetching starts
       try {
         const response = await api.get(`/users/${userId}/cards`, {
           headers: {
@@ -55,6 +58,8 @@ const MyCollection: React.FC = () => {
         })));
       } catch (error) {
         console.error('Error fetching user cards:', error);
+      } finally {
+        setLoading(false); // Set loading to false when fetching ends
       }
     };
 
@@ -85,30 +90,34 @@ const MyCollection: React.FC = () => {
         <h1>Mi Colección</h1>
         <a href={`/cartas/add/${username}`} className="add-card-button">Añadir Carta</a>
         <div className="cards-content">
-          {cards.length === 0 ? (
-            <p>No se encontraron cartas.</p>
+          {loading ? (
+            <LoadingIndicator /> // Show LoadingIndicator while loading
           ) : (
-            <div className="cards-list">
-              {cards.map((card) => (
-                <div key={card._id} className={`card-item ${card.type}`}>
-                  <div className="card">
-                    <div className="card__img-wrapper">
-                      <img
-                        src={card.image || '/images/img-dorso-carta.png'}
-                        alt={card.name}
-                        className="card__img"
-                      />
-                    </div>
-                    <div className="card-info">
-                      <p>{card.name}</p>
-                      <p>Type: {card.type}</p>
-                      <p>HP: {card.hp}</p>
-                      <button onClick={() => handleDeleteCard(card._id)}>Eliminar Carta</button>
+            cards.length === 0 ? (
+              <p>No se encontraron cartas.</p>
+            ) : (
+              <div className="cards-list">
+                {cards.map((card) => (
+                  <div key={card._id} className={`card-item ${card.type}`}>
+                    <div className="card">
+                      <div className="card__img-wrapper">
+                        <img
+                          src={card.image || '/images/img-dorso-carta.png'}
+                          alt={card.name}
+                          className="card__img"
+                        />
+                      </div>
+                      <div className="card-info">
+                        <p>{card.name}</p>
+                        <p>Type: {card.type}</p>
+                        <p>HP: {card.hp}</p>
+                        <button onClick={() => handleDeleteCard(card._id)}>Eliminar Carta</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )
           )}
         </div>
       </main>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import api from '../api';
 import NavBar from './NavBar';
 import '../styles/Mail.css';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface TradeRequest {
@@ -69,20 +69,25 @@ const Mail = () => {
   return (
     <div>
       <NavBar />
-      <h1>Buzón de mensajes</h1>
-      {tradeRequests.length === 0 ? (
-        <p>No hay solicitudes de intercambio.</p>
-      ) : (
-        <ul className="trade-requests-list">
-          {tradeRequests.map((request) => (
-            <li key={request._id} className="trade-request-item">
-              <p>{request.message}</p>
-              <button onClick={() => handleAccept(request._id)}>Aceptar</button>
-              <button onClick={() => handleReject(request._id)}>Rechazar</button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <main className="mail-content">
+        <ToastContainer />
+        <h1>Buzón de mensajes</h1>
+        <div className="trade-container">
+        {tradeRequests.length === 0 ? (
+          <p>No hay solicitudes de intercambio.</p>
+        ) : (
+          <ul className="trade-requests-list">
+            {tradeRequests.map((request) => (
+              <li key={request._id} className="trade-request-item">
+                <p>{request.message}</p>
+                <button onClick={() => handleAccept(request._id)}>Aceptar</button>
+                <button onClick={() => handleReject(request._id)}>Rechazar</button>
+              </li>
+            ))}
+          </ul>
+        )}
+        </div>
+        </main>
       <Link to="/home">Volver al inicio</Link>
     </div>
   );

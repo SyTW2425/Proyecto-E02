@@ -1,22 +1,81 @@
+/* Contenido de la colección */
+.mail-content {
+  padding: 2rem;
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  margin: 0;
+  padding-top: 6rem;
+  background-image: url('../../public/images/fondo-catalogos.png');
+  background-size: auto;
+  background-position: center;
+  background-repeat: repeat;
+  gap: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
+}
+
+.trade-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto; /* Added margin */
+  padding: 20px; /* Added padding */
+  max-width: 1200px;
+  background-color: #fff; /* Added background color */
+  border-radius: 8px; /* Added border radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added box-shadow */
+}
+
 .trade-requests-list {
   list-style-type: none;
   padding: 0;
 }
 
+.trade-requests-list li {
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f9f9f9; /* Added background color */
+  border-radius: 4px; /* Added border radius */
+  transition: background-color 0.3s; /* Added transition for hover effect */
+}
+
+.trade-requests-list li:hover {
+  background-color: #e0e0e0; /* Added hover effect */
+}
+
 .trade-request-item {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 15px;
   margin: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #fafafa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 .trade-request-item p {
   margin: 0;
   flex-grow: 1;
+  color: #555;
 }
 
 .trade-request-item button {
   margin-left: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
+.trade-request-item button:hover {
+  background-color: #0056b3;
+}
+

@@ -14,8 +14,8 @@ const Home = () => {
           <nav className="navbar">
             <h1>PokeDeck</h1>
             <ul>
-              <li><Link to="/config">Configuración</Link></li>
-              <li><Link to="/logout">Logout</Link></li>
+              {/* <li><Link to="/config">Configuración</Link></li> */}
+              <li><Link to="/">Logout</Link></li>
             </ul>
           </nav>
         </header>

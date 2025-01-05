@@ -1,50 +1,65 @@
 .intercambio-container {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
+  padding: 2rem;
+  background-image: url('../../public/images/fondo-catalogos.png');
+  background-size: cover; /* Cubrir toda la pantalla */
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .intercambio-content {
+  margin-top: 50px;
   display: flex;
+  flex-wrap: wrap; /* Permite adaptarse en pantallas pequeñas */
   justify-content: space-between;
-  align-items: center;
-  padding: 20px; /* Añade un padding para separar del borde */
-  flex-grow: 1;
-  overflow-y: auto;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px; /* Limitar el ancho para mejor diseño */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra más suave */
 }
 
-.user-cards, .search-users {
+.user-cards,
+.search-users {
   width: 45%;
-  max-height: 60vh;
+  max-width: 500px;
+  max-height: 70vh;
   overflow-y: auto;
-  overflow-x: auto;
+  background-color: #f9f9f9; /* Fondo más claro */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0px;
+  margin-bottom: 20px; /* Espacio entre elementos en pantallas pequeñas */
 }
 
-.cards-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  justify-content: center;
+.intercambio-container .cards-list {
+  display: grid; /* Usamos grid para un diseño más organizado */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Cartas adaptativas */
+  gap: 15px; /* Espacio entre cartas */
+  width: 100%;
 }
 
-.card-item {
-  margin: 10px;
+.intercambio-container .card-item {
+  transition: transform 0.2s, box-shadow 0.2s; /* Sombra suave al hacer hover */
 }
 
-.card-item.small .card {
-  width: 80px;
-  height: 120px;
-}
-
-.card-item.selected {
-  border: 2px solid #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+.intercambio-container .card-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 input[type="text"] {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .intercambio-container button {
@@ -54,8 +69,34 @@ input[type="text"] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .intercambio-container button:hover {
   background-color: #0056b3;
+  transform: scale(1.03); /* Efecto de agrandamiento */
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #444;
+  text-align: center;
+}
+
+/* Scroll personalizado */
+.user-cards::-webkit-scrollbar,
+.search-users::-webkit-scrollbar {
+  width: 8px;
+}
+
+.user-cards::-webkit-scrollbar-thumb,
+.search-users::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 10px;
+}
+
+.user-cards::-webkit-scrollbar-track,
+.search-users::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }

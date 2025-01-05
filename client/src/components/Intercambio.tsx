@@ -5,7 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 import NavBar from './NavBar';
 import Card from './Card';
 import CardGallery from './CardGallery';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface Card {
@@ -152,6 +152,7 @@ const Intercambio: React.FC = () => {
     <div className={`intercambio-container ${darkMode ? 'dark' : 'light'}`}>
       <NavBar />
       <div className="intercambio-content">
+        <ToastContainer />
         <div className="user-cards">
           <h2>Mis Cartas</h2>
           <CardGallery
